@@ -1,0 +1,6 @@
+.vs/
+packages/
+x64/
+*.inl
+*.sw[op]
+*proj.user
