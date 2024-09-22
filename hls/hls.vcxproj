@@ -80,15 +80,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="download_manifest.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="hls.h" />
+    <ClInclude Include="MasterPlaylist.h" />
+    <ClInclude Include="Media.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Stream.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="download_manifest.cpp" />
+    <ClCompile Include="DownloadManifest.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="MasterPlaylist.cpp" />
+    <ClCompile Include="Media.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Stream.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
