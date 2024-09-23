@@ -10,6 +10,8 @@ namespace hls {
 	class MasterPlaylist {
 	public:
 		void Parse(std::string_view manifest);
+		__declspec(property(get = get_Streams)) std::vector<Stream>& Streams;
+		std::vector<Stream>& get_Streams() { return streams; }
 
 	private:
 		std::vector<Media> medias;
