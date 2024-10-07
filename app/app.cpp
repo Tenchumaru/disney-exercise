@@ -6,7 +6,11 @@
 
 namespace {
 	bool CompareStreams(hls::Stream& left, hls::Stream& right) {
-		if (left.Resolution.second < right.Resolution.second) {
+		if (left.Audio < right.Audio) {
+			return true;
+		} else if (right.Audio < left.Audio) {
+			return false;
+		} else if (left.Resolution.second < right.Resolution.second) {
 			return true;
 		} else if (right.Resolution.second < left.Resolution.second) {
 			return false;
@@ -16,19 +20,23 @@ namespace {
 }
 
 int main() {
-	// Download the master playlist manifest.
-	auto result = hls::DownloadManifest(L"https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/master_unenc_hdr10_all.m3u8");
-	if (!result.empty()) {
-		// Parse it into an instance of the MasterPlaylist class.
-		hls::MasterPlaylist masterPlaylist;
-		masterPlaylist.Parse(result);
+	try {
+		// Download the master playlist manifest.
+		auto result = hls::DownloadManifest(L"https://lw.bamgrid.com/2.0/hls/vod/bam/ms02/hls/dplus/bao/master_unenc_hdr10_all.m3u8");
+		if (!result.empty()) {
+			// Parse it into an instance of the MasterPlaylist class.
+			hls::MasterPlaylist masterPlaylist;
+			masterPlaylist.Parse(result);
 
-		// Sort the streams by resolution and bandwidth.
-		std::sort(masterPlaylist.Streams.begin(), masterPlaylist.Streams.end(), CompareStreams);
+			// Sort the streams by resolution and bandwidth.
+			std::sort(masterPlaylist.Streams.begin(), masterPlaylist.Streams.end(), CompareStreams);
 
-		// Print the streams.
-		for (auto const& stream : masterPlaylist.Streams) {
-			std::cout << stream.Resolution.first << 'x' << stream.Resolution.second << ' ' << stream.Bandwidth << std::endl;
+			// Print the streams.
+			for (auto const& stream : masterPlaylist.Streams) {
+				std::cout << stream.Resolution.first << 'x' << stream.Resolution.second << ' ' << stream.Bandwidth << ' ' << stream.Audio << std::endl;
+			}
 		}
+	} catch (std::exception const& ex) {
+		std::cout << ex.what() << std::endl;
 	}
 }

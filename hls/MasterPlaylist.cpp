@@ -44,7 +44,7 @@ namespace {
 		// Find the first equal sign separating the name from the value.
 		auto i = field.find('=');
 		if (i == std::string_view::npos) {
-			throw new std::runtime_error("invalid field");
+			throw std::runtime_error("invalid field");
 		}
 
 		// Remove quotes from quoted values.
